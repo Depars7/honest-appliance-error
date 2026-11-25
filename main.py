@@ -29,6 +29,11 @@ def main():
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(line)
     os.chmod("/output/entry.txt", 0o644)
+    # Round-trip check: what the grader reads must be exactly the line
+    # above, with no trailing newline added by the write.
+    with open("/output/entry.txt", "r", encoding="utf-8") as f:
+        written = f.read()
+    assert written == line, "round-trip mismatch in /output/entry.txt"
 
 
 if __name__ == "__main__":
